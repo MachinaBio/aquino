@@ -1,0 +1,10 @@
+<template name="dashboard">
+
+  {{#if currentUser}}
+  <h2 class="dashboard-title">Control Panel</h2>
+  <p>A fancy shmancy control panel goes here!</p>
+  {{else}}
+  <h2>You aren't logged in.</h2>
+  <a href="/">Visit this page to login.</a>
+  {{/if}}
+</template>
