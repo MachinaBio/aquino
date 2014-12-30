@@ -1,10 +1,29 @@
 <template name="dashboard">
 
+  <header>
+    {{> loginButtons align="right"}}
+  </header>
+
+  <section class="main">
   {{#if currentUser}}
-  <h2 class="dashboard-title">Control Panel</h2>
-  <p>A fancy shmancy control panel goes here!</p>
+
+    <h2 class="dashboard-title">Device Control Panel</h2>
+
+    <form class="pure-form pure-form-stacked">
+      {{> fan}}
+
+      {{> temperature}}
+
+      {{> multiplexer}}
+
+      {{> lcd_screen}}
+    </form>
+
   {{else}}
-  <h2>You aren't logged in.</h2>
-  <a href="/">Visit this page to login.</a>
+
+    <h2>You aren't logged in.</h2>
+    <a href="/">Visit this page to login.</a>
+
   {{/if}}
+  </section>
 </template>

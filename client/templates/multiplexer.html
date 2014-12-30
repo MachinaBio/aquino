@@ -1,0 +1,20 @@
+<template name="multiplexer">
+
+  <fieldset>
+    <legend>Multiplexer</legend>
+
+    {{#each channels}}
+    <label
+      for="multiplexer-channel-{{channel}}-control">Channel {{channel}}
+      <input
+        class="multiplexer-channel"
+        name="multiplexer-channel"
+        id="multiplexer-channel-{{channel}}-control"
+        type="radio"
+        value="{{channel}}"
+        checked={{checked}}>
+    </label>
+    {{/each}}
+  </fieldset>
+
+</template>
