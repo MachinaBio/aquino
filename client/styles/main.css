@@ -6,6 +6,11 @@ body {
   margin: 0;
 }
 
+.main {
+  width: 66%;
+  margin: 0 auto;
+}
+
 .header-text {
   float: left;
   margin: 0;
@@ -46,4 +51,8 @@ body {
 .dashboard-title {
   clear: both;
   margin: 0;
+}
+
+textarea {
+  resize: none;
 }

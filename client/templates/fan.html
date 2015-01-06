@@ -1,0 +1,17 @@
+<template name="fan">
+
+  <fieldset>
+    <legend>Fan</legend>
+    <label for="fan-control">RPM:</label>
+    <span>0</span>
+    <input id="fan-control" type="range" min="0" max="63" value="{{rpm}}">
+    <span>63</span>
+    <label for="current-rpm">Current Speed:</label>
+    <span id="current-rpm">{{rpm}}</span>
+  </fieldset>
+
+  {{#each FanControl}}
+  <p>foo</p>
+  {{/each}}
+
+</template>

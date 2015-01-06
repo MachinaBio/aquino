@@ -7,5 +7,14 @@ meteor-platform
 insecure
 accounts-base
 accounts-ui-unstyled
-accounts-github
 iron:router
+accounts-google
+accounts-facebook
+accounts-twitter
+accounts-github
+mrt:purecss
+meteorhacks:npm
+
+
+
+npm-container
