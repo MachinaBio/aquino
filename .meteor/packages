@@ -12,9 +12,9 @@ accounts-google
 accounts-facebook
 accounts-twitter
 accounts-github
-mrt:purecss
 meteorhacks:npm
 
 
 
 npm-container
+mrt:purecss

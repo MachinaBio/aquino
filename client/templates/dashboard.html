@@ -1,13 +1,14 @@
 <template name="dashboard">
 
-  <header>
-    {{> loginButtons align="right"}}
+  <header class="logged-in-header">
+    {{> loginButtons}}
+    <h2>Device: [device_id]</h2>
   </header>
 
   <section class="main">
   {{#if currentUser}}
 
-    <h2 class="dashboard-title">Device Control Panel</h2>
+    <h2 class="dashboard-title">Component Control Panel</h2>
 
     <form class="pure-form pure-form-stacked">
       {{> fan}}
@@ -22,7 +23,6 @@
   {{else}}
 
     <h2>You aren't logged in.</h2>
-    <a href="/">Visit this page to login.</a>
 
   {{/if}}
   </section>

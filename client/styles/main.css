@@ -1,9 +1,33 @@
+/*
+  COLORS:
+
+  Light Cyan: #D6F6FF
+  Summer Sky: #3FAAFF
+  Dodger Blue: #0C39FF
+
+  Selective Yellow: #FFC333
+  Dark Tangerine: #FFA114
+ */
+
 * {
   box-sizing: border-box;
+
 }
 
 body {
   margin: 0;
+}
+
+header {
+  text-align: center;
+}
+
+h1 {
+  margin: 25px 0 15px;
+}
+
+h2 {
+  margin: 15px 0;
 }
 
 .main {
@@ -11,14 +35,48 @@ body {
   margin: 0 auto;
 }
 
-.header-text {
-  float: left;
-  margin: 0;
+.login-link-text {
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 5px 10px;
+  min-width: 100px;
+  display: block;
+  margin: 0 auto;
 }
 
-.login-buttons-dropdown-align-right {
-  float: right;
+.accounts-dialog {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.85);
+  position: absolute;
+  padding: 75px;
+}
+
+.login-close-text {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: #fff;
+  text-indent: -99999px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
+  border-radius: 50%;
+}
+
+.login-close-text:before {
+  content: '×';
+  text-indent: 0;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 0;
+  top: 0;
+  font: normal 18px/1.25 sans-serif;
 }
 
 .accounts-centered-dialog {
@@ -43,16 +101,60 @@ body {
 
 .login-button {
   display: inline-block;
-  border: 1px solid #000;
   padding: 5px;
   cursor: pointer;
+  width: 200px;
+  margin: 5px;
+  border-radius: 2px;
+  background: #fff;
 }
 
 .dashboard-title {
   clear: both;
-  margin: 0;
 }
 
 textarea {
   resize: none;
+}
+
+.logged-in-header .login-link-text,
+.logged-in-header h2 {
+  float: left;
+  border: none;
+  font: normal 14px/1.5 sans-serif;
+  margin: 0;
+  padding: 5px 10px;
+  border: none;
+}
+
+.logged-in-header {
+  border-bottom: 1px solid #000;
+}
+
+.logged-in-header:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.main .pure-form fieldset {
+  border-left: 1px solid #f0f0f0;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.main .pure-form fieldset span,
+.main .pure-form fieldset button,
+.main .pure-form fieldset label,
+.main .pure-form fieldset input,
+.main .pure-form fieldset textarea {
+  margin: 5px 10px;
+}
+
+.main .pure-form legend {
+  font: bold 18px/1.5 sans-serif;
+  background: #f0f0f0;
+  padding: 0 10px;
+  margin: 0 0 10px;
+  float: left;
 }
