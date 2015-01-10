@@ -1,0 +1,29 @@
+<template name="dashboard">
+
+  <header class="logged-in-header">
+    {{> loginButtons}}
+    <h2>Device: [device_id]</h2>
+  </header>
+
+  <section class="main">
+  {{#if currentUser}}
+
+    <h2 class="dashboard-title">Component Control Panel</h2>
+
+    <form class="pure-form pure-form-stacked">
+      {{> fan}}
+
+      {{> temperature}}
+
+      {{> multiplexer}}
+
+      {{> lcd_screen}}
+    </form>
+
+  {{else}}
+
+    <h2>You aren't logged in.</h2>
+
+  {{/if}}
+  </section>
+</template>

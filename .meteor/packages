@@ -4,9 +4,17 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
 accounts-base
 accounts-ui-unstyled
+iron:router
+accounts-google
+accounts-facebook
+accounts-twitter
 accounts-github
+meteorhacks:npm
 
+
+
+npm-container
+mrt:purecss
