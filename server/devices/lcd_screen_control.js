@@ -48,11 +48,13 @@ Meteor.methods({
 
     var firstCharacter = asciiCode.shift();
 
-    async.series([goHome, clearScreen, writeText], function saveData (error) {
-      if (error) { throw error; }
+    async.series(
+      [goHome, clearScreen, writeText],
+      Async.wrap(function saveData (error) {
+        if (error) { throw error; }
 
-      LCDScreenControl.upsert(options.id, options.data);
-    });
+        LCDScreenControl.upsert(options.id, options.data);
+    }));
 
   }
 });
