@@ -5,7 +5,7 @@ Meteor.publish('LCDScreenControl', function () {
 
 Meteor.methods({
 
-  'lcd:setText': function (data) {
+  'lcd:setText': function (options) {
 
     function goHome (callback) {
       wire.writeBytes(command, [home], callback);
@@ -42,13 +42,17 @@ Meteor.methods({
 
     var asciiCode = [];
 
-    for (var i = 0; i < data.text.length; i++) {
-      asciiCode.push(CHARACTERS[data.text[i]]);
+    for (var i = 0; i < options.data.text.length; i++) {
+      asciiCode.push(CHARACTERS[options.data.text[i]]);
     }
 
     var firstCharacter = asciiCode.shift();
 
-    async.series([goHome, clearScreen, writeText]);
+    async.series([goHome, clearScreen, writeText], function saveData (error) {
+      if (error) { throw error; }
+
+      LCDScreenControl.upsert(options.id, options.data);
+    });
 
   }
 });
