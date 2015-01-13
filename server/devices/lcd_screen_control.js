@@ -50,7 +50,7 @@ Meteor.methods({
 
     async.series(
       [goHome, clearScreen, writeText],
-      Async.wrap(function saveData (error) {
+      Meteor.bindEnvironment(function saveData (error) {
         if (error) { throw error; }
 
         LCDScreenControl.upsert(options.id, options.data);
