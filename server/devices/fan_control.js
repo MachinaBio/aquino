@@ -5,21 +5,22 @@ Meteor.publish('FanControl', function () {
 
 Meteor.methods({
 
-  'fan:setRPM': function (data) {
+  'fan:setSpeed': function (options) {
 
-    var newRPM = data.rpm;
-    // var i2c = Meteor.npmRequire('i2c');
+    function setSpeed (callback) {
+      wire.writeByte(newSpeed, callback);
+    }
+
+    var newSpeed = options.data.speed;
+    var i2c = Meteor.npmRequire('i2c');
     var address = 0x74;
-    // var wire = new i2c(address, { device: '/dev/i2c-1' });
+    var wire = new i2c(address, { device: '/dev/i2c-1' });
+    var async = Meteor.npmRequire('async');
 
-    // var readByte = Meteor.wrapAsync(wire.readByte);
-    // var writeByte = Meteor.wrapAsync(wire.writeByte);
+    async.series([setSpeed, Meteor.bindEnvironment(function saveData () {
 
-    // var currentRPM = readByte();
-    // console.log('Current RPM:', currentRPM);
-
-    // writeByte(newRPM);
-    console.log('New RPM:', newRPM);
+      FanControl.upsert(options.id, options.data);
+    })]);
 
   }
 });

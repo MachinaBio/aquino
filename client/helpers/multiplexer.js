@@ -5,7 +5,10 @@ Template.multiplexer.helpers({
   channels: function getChannel () {
 
     var last = MultiplexerControl.findOne({}, { sort: { date: -1 }});
-    var NONE_FOUND = [{ channel: 1, checked: false }];
+    var NONE_FOUND = [
+      { channel: 1, checked: false },
+      { channel: 2, checked: false }
+    ];
 
     return last ? last.channels : NONE_FOUND;
   }
