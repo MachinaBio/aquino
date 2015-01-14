@@ -2,20 +2,20 @@
 Meteor.subscribe('FanControl');
 
 Template.fan.helpers({
-  rpm: function getRPM () {
+  speed: function getspeed () {
 
     var last = FanControl.findOne({}, { sort: { date: -1 }});
     var NONE_FOUND = 'N/A';
 
-    return last ? last.rpm : NONE_FOUND;
+    return last ? last.speed : NONE_FOUND;
   }
 });
 
 Template.fan.events({
   'change input': function (e) {
 
-    var rpm = parseInt(e.target.value, 10);
+    var speed = parseInt(e.target.value, 10);
 
-    FanControl.setRPM(this._id, createData('rpm', rpm));
+    FanControl.setRPM(this._id, createData('speed', speed));
   }
 });

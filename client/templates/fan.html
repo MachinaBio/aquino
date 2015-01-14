@@ -2,12 +2,12 @@
 
   <fieldset>
     <legend>Fan</legend>
-    <label for="fan-control">RPM:</label>
+    <label for="fan-control">Speed:</label>
     <span>0</span>
-    <input id="fan-control" type="range" min="0" max="63" value="{{rpm}}">
+    <input id="fan-control" type="range" min="0" max="63" value="{{speed}}">
     <span>63</span>
-    <label for="current-rpm">Current Speed:</label>
-    <span id="current-rpm">{{rpm}}</span>
+    <label for="current-speed">Current Speed:</label>
+    <span id="current-speed">{{speed}}</span>
   </fieldset>
 
   {{#each FanControl}}
