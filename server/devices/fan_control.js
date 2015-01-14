@@ -17,10 +17,10 @@ Meteor.methods({
     var wire = new i2c(address, { device: '/dev/i2c-1' });
     var async = Meteor.npmRequire('async');
 
-    async.series([setRPM, function saveData () {
+    async.series([setRPM, Meteor.bindEnvironment(function saveData () {
 
       FanControl.upsert(options.id, options.data);
-    }]);
+    })]);
 
   }
 });
