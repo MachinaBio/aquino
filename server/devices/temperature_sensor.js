@@ -7,21 +7,32 @@ Meteor.methods({
 
   'temperature:readSensor': function () {
 
-    // var i2c = require('i2c');
+    function readTemperature (callback) {
+
+      wire.readBytes(startByte, endByte, function readBytes (error, response) {
+
+        tens = response[0];
+        decimal = response[1] / 256;
+
+        callback();
+      });
+    }
+
+    var i2c = require('i2c');
     var address = 0x48;
-    // var wire = new i2c(address, { device: '/dev/i2c-1' });
+    var wire = new i2c(address, { device: '/dev/i2c-1' });
+    var async = Meteor.npmRequire('async');
     var startByte = 0;
     var endByte = 2;
+    var tens;
+    var decimal;
 
-    // var readBytes = Meteor.wrapAsync(wire.readBytes);
+    async.series([readTemperature, Meteor.bindEnvironment(function setData () {
 
-    // var temperatureBuffer = readBytes(startByte, endByte);
+      var currentTemperature = tens + decimal;
+      var id = Date.now();
 
-    var tens = temperatureBuffer[0];
-    var decimal = temperatureBuffer[1] / 256;
-
-    var result = tens + decimal;
-
-    return result;
+      TemperatureSensor.upsert(id, currentTemperature);
+    })]);
   }
 });
