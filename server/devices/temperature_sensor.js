@@ -18,7 +18,7 @@ Meteor.methods({
       });
     }
 
-    var i2c = require('i2c');
+    var i2c = Meteor.npmRequire('i2c');
     var address = 0x48;
     var wire = new i2c(address, { device: '/dev/i2c-1' });
     var async = Meteor.npmRequire('async');
