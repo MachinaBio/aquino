@@ -38,5 +38,3 @@ Template.temperature.events({
     );
   }
 });
-
-Meteor.setInterval(TemperatureSensor.getTemperature, 2000);
