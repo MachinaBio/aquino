@@ -8,7 +8,7 @@ Template.temperature.helpers({
     var last = TemperatureSensor.findOne({}, { sort: { date: -1 }});
     var NONE_FOUND = 'N/A';
 
-    return last ? last.current : NONE_FOUND;
+    return last ? last.temp : NONE_FOUND;
 
   },
 
@@ -36,11 +36,7 @@ Template.temperature.events({
       this._id,
       createData('target', newTemperature)
     );
-  },
-
-  'click .get-temperature': function (e) {
-    e.preventDefault();
-
-    TemperatureSensor.getTemperature();
   }
 });
+
+Meteor.setInterval(TemperatureSensor.getTemperature, 1000);

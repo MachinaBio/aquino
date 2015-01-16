@@ -30,9 +30,9 @@ Meteor.methods({
     async.series([readTemperature, Meteor.bindEnvironment(function setData () {
 
       var currentTemperature = tens + decimal;
-      var id = Date.now();
+      var time = Date.now();
 
-      TemperatureSensor.upsert(id, currentTemperature);
+      TemperatureSensor.insert({ time: time, temp: currentTemperature });
     })]);
   }
 });
