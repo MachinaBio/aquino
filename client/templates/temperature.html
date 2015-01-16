@@ -4,6 +4,7 @@
     <legend>Temperature (&deg;C)</legend>
     <label for="current-temperature">Current:</label>
     <span name="current-temperature">{{current}}</span>
+    <button class="get-temperature pure-button">Get Current Temp</button>
     <label for="temperature-control">Target:</label>
     <input
       class="temperature-control"
@@ -12,7 +13,7 @@
       inputmode="numeric"
       pattern="\d+\.?\d*"
       placeholder="{{target}}">
-    <button class="pure-button">Set New Target</button>
+    <button class="set-temperature pure-button">Set New Target</button>
   </fieldset>
 
 </template>

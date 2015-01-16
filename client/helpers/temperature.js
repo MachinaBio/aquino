@@ -23,7 +23,7 @@ Template.temperature.helpers({
 
 Template.temperature.events({
 
-  'click button': function (e) {
+  'click .set-temperature': function (e) {
     e.preventDefault();
 
     var $button = $(e.target);
@@ -36,5 +36,11 @@ Template.temperature.events({
       this._id,
       createData('target', newTemperature)
     );
+  },
+
+  'click .get-temperature': function (e) {
+    e.preventDefault();
+
+    TemperatureSensor.getTemperature();
   }
 });
