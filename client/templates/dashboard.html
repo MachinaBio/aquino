@@ -2,7 +2,7 @@
 
   <header class="logged-in-header">
     {{> loginButtons}}
-    <h2>Device: [device_id]</h2>
+    <h2>Device: {{device_id}}</h2>
   </header>
 
   <section class="main">
@@ -14,8 +14,6 @@
       {{> fan}}
 
       {{> temperature}}
-
-      {{> multiplexer}}
 
       {{> lcd_screen}}
     </form>

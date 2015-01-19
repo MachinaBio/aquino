@@ -12,6 +12,24 @@ Template.temperature.helpers({
 
   },
 
+  time: function getTime () {
+
+    var last = TemperatureSensor.findOne({}, { sort: { time: -1 }});
+    var NONE_FOUND = 'N/A';
+
+    var time = last ?
+      new Date(last.time).toLocaleTimeString() :
+      NONE_FOUND
+      ;
+    var date = last ?
+      new Date(last.time).toLocaleDateString() :
+      NONE_FOUND
+      ;
+    var when = time + ', ' + date;
+
+    return when;
+  },
+
   target: function getTarget () {
 
     var last = HeaterControl.findOne({}, { sort: { date: -1 }});

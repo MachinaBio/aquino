@@ -10,7 +10,8 @@ Meteor.startup(function () {
         callback();
       },
       dump: function (address, range, callback) {
-        callback();
+        // Some dummy data stub to not break things.
+        callback(null, []);
       }
     };
   }
