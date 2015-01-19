@@ -21,7 +21,8 @@ Meteor.methods({
     async.series([
       readTemperature,
       Meteor.bindEnvironment(function setData (error, results) {
-
+      if (error) throw error;
+      console.log(results);
       tens = results[0];
       decimal = results[1] / 256;
       var currentTemperature = '~' + tens; // + decimal;
