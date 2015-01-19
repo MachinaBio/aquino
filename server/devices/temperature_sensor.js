@@ -28,7 +28,7 @@ Meteor.methods({
     async.series([
       readTemperature,
       Meteor.bindEnvironment(function setData () {
-      if (dumpError) { throw dumpError };
+      if (dumpError) { throw dumpError; };
 
       tens = dumpResults[0];
       //decimal = results[1] / 256;
