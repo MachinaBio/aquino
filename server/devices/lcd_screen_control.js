@@ -8,21 +8,19 @@ Meteor.methods({
   'lcd:setText': function (options) {
 
     function goHome (callback) {
-      wire.writeBytes(command, [home], callback);
+      rasp2c.set(address, command, home, callback);
     }
 
     function clearScreen (callback) {
-      wire.writeBytes(command, [clear], callback);
+      rasp2c.set(address, command, [clear], callback);
     }
 
     function writeText (callback) {
-      wire.writeBytes(firstCharacter, asciiCode, callback);
+      rasp2c.set(address, firstCharacter, asciiCode, callback);
     }
 
-    var i2c = Meteor.npmRequire('i2c');
     var async = Meteor.npmRequire('async');
     var address = 0x28;
-    var wire = new i2c(address, { device: '/dev/i2c-1' });
 
     var command = 0xfe;
     var clear = 0x51;
