@@ -8,13 +8,12 @@ Meteor.methods({
   'fan:setSpeed': function (options) {
 
     function setSpeed (callback) {
-      wire.writeByte(newSpeed, callback);
+        rasp2c.set(address, newSpeed, value, callback);
     }
 
     var newSpeed = options.data.speed;
-    var i2c = Meteor.npmRequire('i2c');
     var address = 0x74;
-    var wire = new i2c(address, { device: '/dev/i2c-1' });
+    var value = '';
     var async = Meteor.npmRequire('async');
 
     async.series([setSpeed, Meteor.bindEnvironment(function saveData () {

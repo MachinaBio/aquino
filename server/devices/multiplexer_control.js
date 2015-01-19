@@ -8,13 +8,11 @@ Meteor.methods({
   'multiplexer:setChannel': function (options) {
 
     function setChannel (callback) {
-      wire.writeByte(byte, callback);
+      rasp2c.set(address, channel, callback);
     }
 
     var channels = options.data.channels;
-    var i2c = Meteor.npmRequire('i2c');
     var address = 0x70;
-    var wire = new i2c(address, { device: '/dev/i2c-1' });
     var async = Meteor.npmRequire('async');
 
     var OFF = 'OFF';
@@ -29,7 +27,7 @@ Meteor.methods({
     });
     var newChannel = checked ? checked.channel : OFF;
 
-    var byte = channelByteMap[newChannel];
+    var channel = channelByteMap[newChannel];
 
     async.series([setChannel, Meteor.bindEnvironment(function setData () {
       MultiplexerControl.upsert(options.id, options.data);
