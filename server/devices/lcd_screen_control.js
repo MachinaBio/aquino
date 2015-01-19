@@ -12,11 +12,11 @@ Meteor.methods({
     }
 
     function clearScreen (callback) {
-      rasp2c.set(address, command, [clear], callback);
+      rasp2c.set(address, command, clear, callback);
     }
 
     function writeText (callback) {
-      rasp2c.set(address, firstCharacter, asciiCode, callback);
+      rasp2c.set(address, asciiCode.join(' '), callback);
     }
 
     var async = Meteor.npmRequire('async');
@@ -43,8 +43,6 @@ Meteor.methods({
     for (var i = 0; i < options.data.text.length; i++) {
       asciiCode.push(CHARACTERS[options.data.text[i]]);
     }
-
-    var firstCharacter = asciiCode.shift();
 
     async.series(
       [goHome, clearScreen, writeText],

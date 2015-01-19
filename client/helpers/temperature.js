@@ -5,7 +5,7 @@ Meteor.subscribe('HeaterControl');
 Template.temperature.helpers({
   current: function getTemperature () {
 
-    var last = TemperatureSensor.findOne({}, { sort: { date: -1 }});
+    var last = TemperatureSensor.findOne({}, { sort: { time: -1 }});
     var NONE_FOUND = 'N/A';
 
     return last ? last.temp : NONE_FOUND;

@@ -9,7 +9,12 @@ Meteor.methods({
 
     function readTemperature (callback) {
 
-      rasp2c.dump(address, range, callback);
+      rasp2c.dump(address, range, function setResults (error, results) {
+        if (error) { dumpError = error; }
+        else { dumpResults = results; }
+
+        callback();
+      });
     }
 
     var address = 0x48;
@@ -17,14 +22,16 @@ Meteor.methods({
     var range = '0-2';
     var tens;
     var decimal;
+    var dumpError;
+    var dumpResults;
 
     async.series([
       readTemperature,
-      Meteor.bindEnvironment(function setData (error, results) {
-      if (error) throw error;
-      console.log(results);
-      tens = results[0];
-      decimal = results[1] / 256;
+      Meteor.bindEnvironment(function setData () {
+      if (dumpError) { throw dumpError };
+
+      tens = dumpResults[0];
+      //decimal = results[1] / 256;
       var currentTemperature = '~' + tens; // + decimal;
       var time = Date.now();
 
