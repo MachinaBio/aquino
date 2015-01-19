@@ -39,4 +39,4 @@ Template.temperature.events({
   }
 });
 
-Meteor.setInterval(TemperatureSensor.getTemperature, 1000);
+Meteor.setInterval(TemperatureSensor.getTemperature, 5000);
