@@ -1,6 +1,9 @@
 
 Meteor.publish('TemperatureSensor', function () {
-  return TemperatureSensor.find();
+  return TemperatureSensor.find({}, {
+    sort: { time: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({

@@ -1,6 +1,9 @@
 
 Meteor.publish('FanControl', function () {
-  return FanControl.find();
+  return FanControl.find({}, {
+    sort: { date: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({

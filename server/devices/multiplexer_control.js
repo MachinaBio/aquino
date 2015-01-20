@@ -1,6 +1,9 @@
 
 Meteor.publish('MultiplexerControl', function () {
-  return MultiplexerControl.find();
+  return MultiplexerControl.find({}, {
+    sort: { date: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({

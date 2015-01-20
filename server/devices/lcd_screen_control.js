@@ -1,6 +1,9 @@
 
 Meteor.publish('LCDScreenControl', function () {
-  return LCDScreenControl.find();
+  return LCDScreenControl.find({}, {
+    sort: { date: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({
