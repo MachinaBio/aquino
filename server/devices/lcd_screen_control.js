@@ -8,11 +8,11 @@ Meteor.methods({
   'lcd:setText': function (options) {
 
     function goHome (callback) {
-      rasp2c.set(address, command, home, callback);
+      rasp2c.set(address, command, home, mode, callback);
     }
 
     function clearScreen (callback) {
-      rasp2c.set(address, command, clear, callback);
+      rasp2c.set(address, command, clear, mode, callback);
     }
 
     function writeText (callback) {

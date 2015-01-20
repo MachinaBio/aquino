@@ -8,7 +8,7 @@ Meteor.methods({
   'multiplexer:setChannel': function (options) {
 
     function setChannel (callback) {
-      rasp2c.set(address, channel, callback);
+      rasp2c.set(address, channel, value, mode, callback);
     }
 
     var channels = options.data.channels;
@@ -21,6 +21,8 @@ Meteor.methods({
       '1': 4,
       '2': 5
     };
+    var value = '';
+    var mode = 'i';
 
     var checked = _.find(channels, function findState (channel) {
       return channel.checked;
