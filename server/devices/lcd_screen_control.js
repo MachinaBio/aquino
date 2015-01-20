@@ -16,12 +16,13 @@ Meteor.methods({
     }
 
     function writeText (callback) {
-      rasp2c.set(address, asciiCode.join(' '), mode, callback);
+      rasp2c.set(address, asciiCode.join(' '), value, mode, callback);
     }
 
     var async = Meteor.npmRequire('async');
     var mode = 'i';
     var address = 0x28;
+    var value = '';
 
     var command = 0xfe;
     var clear = 0x51;
