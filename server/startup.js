@@ -5,7 +5,7 @@ Meteor.startup(function () {
 
   if (os.platform() === 'darwin') {
     rasp2c = {
-      set: function (device, address, value, callback) {
+      set: function (device, address, value, mode, callback) {
         // No writing to do, no devices!
         callback();
       },

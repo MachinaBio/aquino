@@ -1,6 +1,19 @@
 
+var timeout;
+
+function pollTemperature () {
+
+  Meteor.clearTimeout(timeout);
+
+  TemperatureSensor.getTemperature();
+
+  timeout = Meteor.setTimeout(pollTemperature, 30000);
+}
+
 Meteor.subscribe('TemperatureSensor');
 Meteor.subscribe('HeaterControl');
+
+pollTemperature();
 
 Template.temperature.helpers({
   current: function getTemperature () {
@@ -56,5 +69,3 @@ Template.temperature.events({
     );
   }
 });
-
-Meteor.setInterval(TemperatureSensor.getTemperature, 5000);
