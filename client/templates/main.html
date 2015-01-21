@@ -4,7 +4,11 @@
     <h1 class="header-text">Welcome to your Machina Pi</h1>
     <h2>Device: {{device_id}}</h2>
 
-    {{> loginButtons}}
+    {{#if currentUser}}
+      <a href="/dashboard">View your dashboard</a>
+    {{else}}
+      {{> loginButtons}}
+    {{/if}}
 
   </header>
 
