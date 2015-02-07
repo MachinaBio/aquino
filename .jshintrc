@@ -83,7 +83,8 @@
     "MultiplexerControl": true,
     "TemperatureSensor": true,
     "HeaterControl": true,
-    "createData": true
+    "createData": true,
+    "rasp2c": true
   }
 }
 

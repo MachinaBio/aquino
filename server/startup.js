@@ -1,2 +1,19 @@
 Meteor.startup(function () {
+
+  var os = Meteor.npmRequire('os');
+  rasp2c = Meteor.npmRequire('rasp2c');
+
+  if (os.platform() === 'darwin') {
+    rasp2c = {
+      set: function (device, address, value, mode, callback) {
+        // No writing to do, no devices!
+        callback();
+      },
+      dump: function (address, range, callback) {
+        // Some dummy data stub to not break things.
+        callback(null, []);
+      }
+    };
+  }
+
 });

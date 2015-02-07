@@ -1,6 +1,9 @@
 
 Meteor.publish('MultiplexerControl', function () {
-  return MultiplexerControl.find();
+  return MultiplexerControl.find({}, {
+    sort: { date: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({
@@ -8,13 +11,11 @@ Meteor.methods({
   'multiplexer:setChannel': function (options) {
 
     function setChannel (callback) {
-      wire.writeByte(byte, callback);
+      rasp2c.set(address, channel, value, mode, callback);
     }
 
     var channels = options.data.channels;
-    var i2c = Meteor.npmRequire('i2c');
     var address = 0x70;
-    var wire = new i2c(address, { device: '/dev/i2c-1' });
     var async = Meteor.npmRequire('async');
 
     var OFF = 'OFF';
@@ -23,13 +24,15 @@ Meteor.methods({
       '1': 4,
       '2': 5
     };
+    var value = '';
+    var mode = 'i';
 
     var checked = _.find(channels, function findState (channel) {
       return channel.checked;
     });
     var newChannel = checked ? checked.channel : OFF;
 
-    var byte = channelByteMap[newChannel];
+    var channel = channelByteMap[newChannel];
 
     async.series([setChannel, Meteor.bindEnvironment(function setData () {
       MultiplexerControl.upsert(options.id, options.data);

@@ -1,6 +1,9 @@
 
 Meteor.publish('HeaterControl', function () {
-  return HeaterControl.find();
+  return HeaterControl.find({}, {
+    sort: { date: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({

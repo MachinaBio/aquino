@@ -1,6 +1,9 @@
 
 Meteor.publish('LCDScreenControl', function () {
-  return LCDScreenControl.find();
+  return LCDScreenControl.find({}, {
+    sort: { date: -1 },
+    limit: 1
+  });
 });
 
 Meteor.methods({
@@ -8,21 +11,21 @@ Meteor.methods({
   'lcd:setText': function (options) {
 
     function goHome (callback) {
-      wire.writeBytes(command, [home], callback);
+      rasp2c.set(address, command, home, mode, callback);
     }
 
     function clearScreen (callback) {
-      wire.writeBytes(command, [clear], callback);
+      rasp2c.set(address, command, clear, mode, callback);
     }
 
     function writeText (callback) {
-      wire.writeBytes(firstCharacter, asciiCode, callback);
+      rasp2c.set(address, asciiCode.join(' '), value, mode, callback);
     }
 
-    var i2c = Meteor.npmRequire('i2c');
     var async = Meteor.npmRequire('async');
+    var mode = 'i';
     var address = 0x28;
-    var wire = new i2c(address, { device: '/dev/i2c-1' });
+    var value = '';
 
     var command = 0xfe;
     var clear = 0x51;
@@ -45,8 +48,6 @@ Meteor.methods({
     for (var i = 0; i < options.data.text.length; i++) {
       asciiCode.push(CHARACTERS[options.data.text[i]]);
     }
-
-    var firstCharacter = asciiCode.shift();
 
     async.series(
       [goHome, clearScreen, writeText],

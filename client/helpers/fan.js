@@ -2,12 +2,20 @@
 Meteor.subscribe('FanControl');
 
 Template.fan.helpers({
-  speed: function getspeed () {
+  speed: function getSpeed () {
 
     var last = FanControl.findOne({}, { sort: { date: -1 }});
     var NONE_FOUND = 'N/A';
 
     return last ? last.speed : NONE_FOUND;
+  },
+
+  percent: function getPercent () {
+
+    var last = FanControl.findOne({}, { sort: { date: -1 }});
+    var NONE_FOUND = 'N/A';
+
+    return last ? Math.round((last.speed / 63) * 100) : NONE_FOUND;
   }
 });
 

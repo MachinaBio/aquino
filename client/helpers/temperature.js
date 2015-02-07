@@ -1,15 +1,46 @@
 
+var timeout;
+
+function pollTemperature () {
+
+  Meteor.clearTimeout(timeout);
+
+  TemperatureSensor.getTemperature();
+
+  timeout = Meteor.setTimeout(pollTemperature, 30000);
+}
+
 Meteor.subscribe('TemperatureSensor');
 Meteor.subscribe('HeaterControl');
+
+pollTemperature();
 
 Template.temperature.helpers({
   current: function getTemperature () {
 
-    var last = TemperatureSensor.findOne({}, { sort: { date: -1 }});
+    var last = TemperatureSensor.findOne({}, { sort: { time: -1 }});
     var NONE_FOUND = 'N/A';
 
-    return last ? last.current : NONE_FOUND;
+    return last ? last.temp : NONE_FOUND;
 
+  },
+
+  time: function getTime () {
+
+    var last = TemperatureSensor.findOne({}, { sort: { time: -1 }});
+    var NONE_FOUND = 'N/A';
+
+    var time = last ?
+      new Date(last.time).toLocaleTimeString() :
+      NONE_FOUND
+      ;
+    var date = last ?
+      new Date(last.time).toLocaleDateString() :
+      NONE_FOUND
+      ;
+    var when = time + ', ' + date;
+
+    return when;
   },
 
   target: function getTarget () {
@@ -23,7 +54,7 @@ Template.temperature.helpers({
 
 Template.temperature.events({
 
-  'click button': function (e) {
+  'click .set-temperature': function (e) {
     e.preventDefault();
 
     var $button = $(e.target);

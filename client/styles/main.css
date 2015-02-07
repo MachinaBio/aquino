@@ -3,19 +3,78 @@
 
   Light Cyan: #D6F6FF
   Summer Sky: #3FAAFF
-  Dodger Blue: #0C39FF
+  Dodger Blue: #0C93FF
 
   Selective Yellow: #FFC333
   Dark Tangerine: #FFA114
  */
 
+@font-face {
+  font-family: Stark;
+  src: url('/fonts/Stark.OTF');
+}
+
+@font-face {
+  font-family: MotorOil;
+  src: url('/fonts/Motor Oil 1937 M54.ttf');
+}
+
+@font-face {
+  font-family: SourceProRegular;
+  src: url('/fonts/Source Code Powerline Regular.otf');
+}
+
+@font-face {
+  font-family: SourceProBlack;
+  src: url('/fonts/Source Code Powerline Black.otf');
+}
+
+@font-face {
+  font-family: SourceProBold;
+  src: url('/fonts/Source Code Powerline Bold.otf');
+}
+
+@font-face {
+  font-family: SourceProExtraLight;
+  src: url('/fonts/Source Code Powerline ExtraLight.otf');
+}
+
+@font-face {
+  font-family: SourceProLight;
+  src: url('/fonts/Source Code Powerline Light.otf');
+}
+
+@font-face {
+  font-family: SourceProMedium;
+  src: url('/fonts/Source Code Powerline Medium.otf');
+}
+
+@font-face {
+  font-family: SourceProSemibold;
+  src: url('/fonts/Source Code Powerline Semibold.otf');
+}
+
+@font-face {
+  font-family: Foundation;
+  src: url('/fonts/foundation-icons/foundation-icons.woff');
+}
+
 * {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
 
+html {
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  color: #d6f6ff;
+  background: #000;
+  font-family: SourceProExtraLight;
 }
 
 header {
@@ -23,11 +82,18 @@ header {
 }
 
 h1 {
-  margin: 25px 0 15px;
+  margin: 25px 0;
+  font-family: Stark;
+  color: #0C93FF;
 }
 
 h2 {
   margin: 15px 0;
+}
+
+#logo {
+  width: 500px;
+  margin: 50px 0 0;
 }
 
 .main {
@@ -37,12 +103,18 @@ h2 {
 
 .login-link-text {
   cursor: pointer;
-  border: 1px solid #000;
+  border: 2px solid #3FAAFF;
   border-radius: 2px;
   padding: 5px 10px;
   min-width: 100px;
   display: block;
   margin: 0 auto;
+  width: 200px;
+  font: normal 20px/1.8 SourceProSemibold;
+  background: #0c93ff;
+  background: linear-gradient(to bottom, #0C93FF, #3FAAFF);
+  height: 50px;
+  box-shadow: 0 0 0 2px #0C93FF;
 }
 
 .accounts-dialog {
@@ -54,18 +126,27 @@ h2 {
   background: rgba(0, 0, 0, 0.85);
   position: absolute;
   padding: 75px;
+  box-shadow:
+    inset 0 0 20px #0C93FF,
+    inset 0 0 40px #3FAAFF,
+    inset 0 0 60px #D6F6FF
+    ;
 }
 
 .login-close-text {
   position: absolute;
-  right: 10px;
-  top: 10px;
-  background: #fff;
+  right: 25px;
+  top: 25px;
+  background: #0C93FF;
   text-indent: -99999px;
   width: 25px;
   height: 25px;
   cursor: pointer;
   border-radius: 50%;
+  border: 2px solid #3FAAFF;
+  background: #0c93ff;
+  background: linear-gradient(to bottom, #0C93FF, #3FAAFF);
+  box-shadow: 0 0 0 2px #0C93FF;
 }
 
 .login-close-text:before {
@@ -74,8 +155,8 @@ h2 {
   position: absolute;
   width: 25px;
   height: 25px;
-  left: 0;
-  top: 0;
+  left: -2px;
+  top: -2px;
   font: normal 18px/1.25 sans-serif;
 }
 
@@ -101,16 +182,31 @@ h2 {
 
 .login-button {
   display: inline-block;
-  padding: 5px;
+  padding: 5px 10px;
   cursor: pointer;
-  width: 200px;
-  margin: 5px;
+  width: 350px;
+  margin: 10px;
   border-radius: 2px;
-  background: #fff;
+  border: 2px solid #3FAAFF;
+  font: normal 20px/1.8 SourceProSemibold;
+  background: #0c93ff;
+  background: linear-gradient(to bottom, #0C93FF, #3FAAFF);
+  box-shadow: 0 0 0 2px #0C93FF;
+  height: 50px;
+  position: relative;
+}
+
+.sign-in-text-github:before {
+  content: '\f1c9';
+  font: normal 30px/1 Foundation;
+  position: absolute;
+  left: 15px;
+  top: 10px;
 }
 
 .dashboard-title {
   clear: both;
+  font: normal 28px/1.5 Stark;
 }
 
 textarea {
@@ -121,14 +217,22 @@ textarea {
 .logged-in-header h2 {
   float: left;
   border: none;
-  font: normal 14px/1.5 sans-serif;
+  font: normal 14px/1.5 SourceProExtraLight;
   margin: 0;
   padding: 5px 10px;
   border: none;
+  background: none;
+  height: auto;
+  width: auto;
+  box-shadow: none;
 }
 
 .logged-in-header {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #0C93FF;
+  height: 45px;
+  padding: 0 0 15px;
+  margin: 25px auto 10px;
+  width: 66%;
 }
 
 .logged-in-header:after {
@@ -137,10 +241,18 @@ textarea {
   clear: both;
 }
 
+.logged-in-header #logo {
+  width: auto;
+  height: 30px;
+  margin: 0 10px 0 0;
+  float: left;
+}
+
 .main .pure-form fieldset {
-  border-left: 1px solid #f0f0f0;
+  border-left: 1px solid #3FAAFF;
   margin: 20px 0;
-  padding: 0;
+  padding: 0 0 5px;
+  border-radius: 10px;
 }
 
 .main .pure-form fieldset span,
@@ -151,10 +263,70 @@ textarea {
   margin: 5px 10px;
 }
 
+.main .pure-form fieldset label {
+  color: #0C93FF;
+  display: inline-block;
+}
+
 .main .pure-form legend {
-  font: bold 18px/1.5 sans-serif;
-  background: #f0f0f0;
+  font: normal 18px/1.5 SourceProSemibold;
+  background: #0C93FF;
+  background: linear-gradient(to right, #0C93FF, #000);
   padding: 0 10px;
   margin: 0 0 10px;
   float: left;
+  color: #D6F6FF;
+  border-top: 1px solid #3FAAFF;
+  border-bottom: none;
+  border-radius: 10px 0 0 0;
+}
+
+.main .pure-form input {
+  display: inline-block;
+}
+
+.main .pure-form .current-text {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #D6F6FF;
+  font: normal 18px/1.5 SourceProRegular;
+  padding: 0;
+  margin: 2px 0;
+  min-width: 235px;
+  width: 50%;
+}
+
+.main .pure-form .lcd-screen label {
+  width: 150px;
+  display: block;
+  float: left;
+  clear: both;
+}
+
+.main .pure-form .new-text {
+  background: none;
+  border-radius: 2px;
+  box-shadow: none;
+  color: #3FAAFF;
+  padding: 0 5px;
+  font: normal 18px/1.5 SourceProRegular;
+  margin: 2px 15% 2px 0;
+  min-width: 235px;
+}
+
+::-webkit-input-placeholder {
+  color: #333;
+}
+
+.main .pure-form .control-panel-button {
+  color: #D6F6FF;
+  border-radius: 2px;
+  background: #0C93FF;
+  background: linear-gradient(to bottom, #0C93FF, #3FAAFF);
+  box-shadow: 0 0 0 2px #0C93FF;
+  border: 2px solid #3FAAFF;
+  padding: 5px;
+  display: block;
+  margin: 10px;
 }

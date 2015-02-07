@@ -3,16 +3,16 @@
   <fieldset>
     <legend>Temperature (&deg;C)</legend>
     <label for="current-temperature">Current:</label>
-    <span name="current-temperature">{{current}}</span>
-    <label for="temperature-control">Target:</label>
-    <input
+    <span name="current-temperature">{{current}} <em>at {{time}}</em></span>
+    <!-- <label for="temperature-control">Target:</label> -->
+    <!-- <input
       class="temperature-control"
       name="temperature-control"
       type="text"
       inputmode="numeric"
       pattern="\d+\.?\d*"
       placeholder="{{target}}">
-    <button class="pure-button">Set New Target</button>
+    <button class="set-temperature pure-button">Set New Target</button> -->
   </fieldset>
 
 </template>
