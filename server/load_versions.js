@@ -6,7 +6,7 @@ Meteor.methods({
     var METEOR_PACKAGES = '../../../../versions';
     var METEOR_VERSION = '../../../../release';
     var NODE_VERSION_COMMAND = 'node --version';
-    var AQUINO_VERSION_COMMAND = 'git describe';
+    var AQUINO_VERSION_COMMAND = 'git describe --abbrev=0 --tags';
 
     var fs = Meteor.npmRequire('fs');
     var semver = Meteor.npmRequire('semver');
