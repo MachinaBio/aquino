@@ -1,19 +1,15 @@
 Meteor.startup(function () {
+  var aquinoConfig = JSON.parse(Assets.getText('aquino_config.json'));
 
-  var os = Meteor.npmRequire('os');
+  // Globals
   rasp2c = Meteor.npmRequire('rasp2c');
+  boss = DDP.connect(aquinoConfig.boss);
 
-  if (os.platform() === 'darwin') {
-    rasp2c = {
-      set: function (device, address, value, mode, callback) {
-        // No writing to do, no devices!
-        callback();
-      },
-      dump: function (address, range, callback) {
-        // Some dummy data stub to not break things.
-        callback(null, []);
-      }
-    };
-  }
+  var versions = Meteor.call('loadVersions');
+
+  Meteor.call('considerPlatform');
+  boss.call('deviceReport', aquinoConfig.device, versions);
+  console.log('Connected to boss', aquinoConfig.boss, 'successfully');
 
 });
+

@@ -1,3 +1,8 @@
+.meteor/local
+.meteor/meteorite
+
+packages/npm-container/.npm/package/npm-shrinkwrap.json
+
 # Logs
 logs
 *.log
