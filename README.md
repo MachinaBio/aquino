@@ -14,10 +14,12 @@ The Meteor app running on the Raspberry Pi.
 8. Add your Pi to a wifi network if appropriate.  You can find instructions on how to do this elsewhere online.
 13. If you're not already running Debian Jessie or newer, go ahead and add the repos by creating a `/etc/apt/sources.list.d/jessie.list` file and adding the following line to it: `deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi`
 14. Update the packages: `sudo apt-get update`.
-15. Install relevant packages: `sudo apt-get install build-essential debian-keyring autoconf automake libtool flex bison mongodb`
+15. Install relevant packages: `sudo apt-get install build-essential debian-keyring autoconf automake libtool flex bison mongodb locales`.  Mongodb will try to start as a service, and fail, but this is okay for now.
+15. You'll need to regenerate the locales: `sudo locale-gen`
+15. Create the data folder for mongodb: `sudo mkdir -p /data/db && chown -R mongodb:mongodb /data && chmod a+wx /data`.  This allows mongodb to start on boot.  You can test this now by `sudo service mongodb start`.
 16. Make sure `gcc --version` reports at least 4.9.x or newer.  If not, you'll need to get it.
 17. Change up to the root user: `sudo su -`
-19. Pull down and compile node.js.  We've tested against 0.10.36 so far.  This'll take some time.
+19. Pull down and compile node.js.  We've tested against 0.10.36 and 0.12.2, and only 0.10.36 works so far.  This'll take some time to run.
 ```
 cd /tmp
 git clone https://github.com/joyent/node.git
