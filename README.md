@@ -11,7 +11,6 @@ The Meteor app running on the Raspberry Pi.
 4. Add your new user to the /etc/sudoers file with `sudo visudo`, and then give your new user the appropriate permissions (copying what root has and changing the name usually suffices).
 5. Logout of the current user, and login to your newly create user.
 6. Remove the default user: `sudo deluser pi`.
-7. Change the locale and keyboard settings to be whichever are relevant to you in the config: `sudo raspi-config`
 8. Add your Pi to a wifi network if appropriate.  You can find instructions on how to do this elsewhere online.
 13. If you're not already running Debian Jessie or newer, go ahead and add the repos by creating a `/etc/apt/sources.list.d/jessie.list` file and adding the following line to it: `deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi`
 14. Update the packages: `sudo apt-get update`.
