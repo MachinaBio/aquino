@@ -6,7 +6,7 @@ The Meteor app running on the Raspberry Pi.
 ## Setting up the Pi
 
 1. After imaging the hard disk the Pi will use (SD card or internal compute module storage), boot into the Pi locally, rather than over the network.  You're likely to encounter the `raspi-config` screen, but if not go ahead and `sudo raspi-config`.
-2. In the setup menu, set the internationalization options to en-US.UTF8, set the right keyboard layout, enable I2C, overclock the device to "Turbo", and finally expand the filesystem.  When all that is done, choose "Finish" and reboot the pi.
+2. In the setup menu, set the internationalization options to en-US.UTF8, set the right keyboard layout, enable I2C, overclock the device to "Pi2", and finally expand the filesystem.  When all that is done, choose "Finish" and reboot the pi.
 3. Login with the default credentials: "pi", and "raspberry".  Go ahead and create a common user account here.  Using "machina" as an example: `sudo adduser machina`.  Choose sensible defaults.
 4. Add your new user to the /etc/sudoers file with `sudo visudo`, and then give your new user the appropriate permissions (copying what root has and changing the name usually suffices).
 5. Logout of the current user, and login to your newly create user.
