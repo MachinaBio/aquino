@@ -33,7 +33,7 @@ Meteor.methods({
     var versions = {
       'nodePackages': currentNodePackages,
       'meteorPackages': {},
-      'meteor': currentMeteorVersion[1],
+      'meteor': currentMeteorVersion,
       'node': currentNodeVersion,
       'aquino': currentAquinoVersion
     };
