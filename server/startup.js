@@ -6,9 +6,10 @@ Meteor.startup(function () {
   boss = DDP.connect(aquinoConfig.boss);
 
   var versions = Meteor.call('loadVersions');
+  var serial_number = Meteor.call('loadDeviceSerial');
 
   Meteor.call('considerPlatform');
-  boss.call('deviceReport', aquinoConfig.device, versions);
+  boss.call('deviceReport', serial_number, versions);
   console.log('Connected to boss', aquinoConfig.boss, 'successfully');
 
 });
