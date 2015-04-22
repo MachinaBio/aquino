@@ -4,9 +4,8 @@ Meteor.methods({
 
     var NODE_PACKAGES = '../../../../../packages.json';
     var METEOR_PACKAGES = '../../../../versions';
-    var METEOR_VERSION = '../../../../release';
     var NODE_VERSION_COMMAND = 'node --version';
-    var AQUINO_VERSION_COMMAND = 'git describe --abbrev=0 --tags';
+    var REPO_VERSION_COMMAND = 'git describe --abbrev=0 --tags';
 
     var fs = Meteor.npmRequire('fs');
     var semver = Meteor.npmRequire('semver');
@@ -14,12 +13,17 @@ Meteor.methods({
 
     var currentNodePackages = fs.readFileSync(NODE_PACKAGES, 'utf8');
     var currentMeteorPackages = fs.readFileSync(METEOR_PACKAGES, 'utf8');
-    var currentMeteorVersion = fs.readFileSync(METEOR_VERSION, 'utf8');
+    var currentMeteorVersion = execSync(REPO_VERSION_COMMAND, {
+      cwd: '/usr/local/lib/meteor',
+      encoding: 'utf8'
+    });
     var currentNodeVersion = semver.clean(execSync(NODE_VERSION_COMMAND));
-    var currentAquinoVersion = semver.clean(execSync(AQUINO_VERSION_COMMAND));
+    var currentAquinoVersion = semver.clean(execSync(REPO_VERSION_COMMAND));
 
     currentNodePackages = JSON.parse(currentNodePackages);
-    currentMeteorVersion = currentMeteorVersion.replace('\n', '').split('@');
+    currentMeteorVersion = currentMeteorVersion.replace('\n', '')
+      .replace('release/', '')
+      ;
     currentMeteorPackages = currentMeteorPackages.split('\n');
     // Meteor package list requires a little extra massaging
     if (currentMeteorPackages[currentMeteorPackages.length - 1] === '') {
