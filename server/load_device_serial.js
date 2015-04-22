@@ -5,7 +5,10 @@ Meteor.methods({
 
     var execSync = Meteor.wrapAsync(Meteor.npmRequire('child_process').exec);
 
-    var serial_number = execSync(DEVICE_SERIAL_COMMAND).replace(' ', '');
+    var serial_number = execSync(DEVICE_SERIAL_COMMAND)
+      .replace(' ', '')
+      .replace('\n', '')
+      ;
 
     return serial_number;
   }
