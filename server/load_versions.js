@@ -13,10 +13,17 @@ Meteor.methods({
 
     var currentNodePackages = fs.readFileSync(NODE_PACKAGES, 'utf8');
     var currentMeteorPackages = fs.readFileSync(METEOR_PACKAGES, 'utf8');
-    var currentMeteorVersion = execSync(REPO_VERSION_COMMAND, {
-      cwd: '/usr/local/lib/meteor',
-      encoding: 'utf8'
-    });
+    var currentMeteorVersion;
+    try {
+      // For RPi
+      currentMeteorVersion = execSync(REPO_VERSION_COMMAND, {
+        cwd: '/usr/local/lib/meteor',
+        encoding: 'utf8'
+      });
+    } catch (error) {
+      // For local dev, et al
+      currentMeteorVersion = execSync('meteor --version', 'utf8');
+    }
     var currentNodeVersion = semver.clean(execSync(NODE_VERSION_COMMAND));
     var currentAquinoVersion = semver.clean(execSync(REPO_VERSION_COMMAND));
 
