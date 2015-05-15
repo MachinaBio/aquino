@@ -22,7 +22,10 @@ Meteor.methods({
       });
     } catch (error) {
       // For local dev, et al
-      currentMeteorVersion = execSync('meteor --version', 'utf8');
+      currentMeteorVersion = execSync('meteor --version', {
+        cwd: './',
+        encoding: 'utf8'
+      });
     }
     var currentNodeVersion = semver.clean(execSync(NODE_VERSION_COMMAND));
     var currentAquinoVersion = semver.clean(execSync(REPO_VERSION_COMMAND));

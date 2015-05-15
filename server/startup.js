@@ -1,7 +1,7 @@
 Meteor.startup(function () {
   function setReconnectTimestamp () {
     console.log('Reconnecting to boss', aquinoConfig.boss);
-    boss.call('deviceUpdateTimestamp', serial_number);
+    boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
   }
 
   var aquinoConfig = JSON.parse(Assets.getText('aquino_config.json'));
@@ -19,7 +19,7 @@ Meteor.startup(function () {
   Meteor.call('considerPlatform');
   boss.call('deviceReport', serial_number, versions, jobs, devices);
   boss.call('deviceStatus', serial_number, status);
-  boss.call('deviceUpdateTimestamp', serial_number);
+  boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
   console.log('Connected to boss', aquinoConfig.boss, 'successfully');
 
   boss.onReconnect = setReconnectTimestamp;
