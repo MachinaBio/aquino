@@ -1,7 +1,10 @@
 Meteor.startup(function () {
-  function setReconnectTimestamp () {
-    console.log('Reconnecting to boss', aquinoConfig.boss);
-    boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
+  function reportIdentity () {
+
+    if (priorConnectionId !== boss._lastSessionId) {
+      boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
+    }
+    Meteor.setTimeout(reportIdentity, 1000);
   }
 
   var aquinoConfig = JSON.parse(Assets.getText('aquino_config.json'));
@@ -15,6 +18,7 @@ Meteor.startup(function () {
   var status = Meteor.call('determineStatus');
   var jobs = Jobs.find().fetch();
   var devices = Devices.find().fetch();
+  var priorConnectionId = boss._lastSessionId;
 
   Meteor.call('considerPlatform');
   boss.call('deviceReport', serial_number, versions, jobs, devices);
@@ -22,7 +26,7 @@ Meteor.startup(function () {
   boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
   console.log('Connected to boss', aquinoConfig.boss, 'successfully');
 
-  boss.onReconnect = setReconnectTimestamp;
+  Meteor.setTimeout(reportIdentity, 1000);
 
 });
 
