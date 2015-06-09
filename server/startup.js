@@ -10,7 +10,6 @@ Meteor.startup(function () {
   var aquinoConfig = JSON.parse(Assets.getText('aquino_config.json'));
 
   // Globals
-  rasp2c = Meteor.npmRequire('rasp2c');
   boss = DDP.connect(aquinoConfig.boss);
   serial_number = Meteor.call('loadDeviceSerial');
 
@@ -24,6 +23,12 @@ Meteor.startup(function () {
   boss.call('deviceReport', serial_number, versions, jobs, devices);
   boss.call('deviceStatus', serial_number, status);
   boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
+  boss.subscribe('SingleDevice', serial_number);
+
+  AquinoDevices = new Mongo.Collection('AquinoDevices', {
+    connection: boss
+  });
+
   console.log('Connected to boss', aquinoConfig.boss, 'successfully');
 
   Meteor.setTimeout(reportIdentity, 1000);
