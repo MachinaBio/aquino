@@ -1,5 +1,4 @@
 {
-  "rasp2c": "https://github.com/StrictlySkyler/node-rasp2c/archive/70e889df82ed7b270608782cbbe93de3d64207c5.tar.gz",
-  "async": "0.9.0",
+  "node-pid-controller": "0.0.3",
   "semver": "4.3.3"
 }

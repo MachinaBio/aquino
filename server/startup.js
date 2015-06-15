@@ -23,11 +23,8 @@ Meteor.startup(function () {
   boss.call('deviceReport', serial_number, versions, jobs, devices);
   boss.call('deviceStatus', serial_number, status);
   boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);
-  boss.subscribe('SingleDevice', serial_number);
 
-  AquinoDevices = new Mongo.Collection('AquinoDevices', {
-    connection: boss
-  });
+  Meteor.call('subscribeToControlData');
 
   console.log('Connected to boss', aquinoConfig.boss, 'successfully');
 
