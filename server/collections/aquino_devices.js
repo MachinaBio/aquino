@@ -27,7 +27,10 @@ Meteor.methods({
     }
 
     function setInitialTarget (fields) {
-      var latest = fields.controls.Temperature.Setpoints.length - 1;
+      var latest = fields.controls.Temperature ?
+        fields.controls.Temperature.Setpoints.length - 1 :
+        0
+        ;
       console.log(fields.controls.Temperature.Setpoints[latest].value);
 
       controller.setTarget(latest);
