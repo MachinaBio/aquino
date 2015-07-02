@@ -31,7 +31,7 @@ Meteor.methods({
         fields.controls.Temperature.Setpoints.length - 1 :
         0
         ;
-      console.log(fields.controls.Temperature.Setpoints[latest].value);
+      console.log(latest);
 
       controller.setTarget(latest);
 
