@@ -27,7 +27,7 @@ Meteor.methods({
     }
 
     function setInitialTarget (fields) {
-      var latest = fields.controls.Temperature ?
+      var latest = (fields.controls && fields.controls.Temperature) ?
         fields.controls.Temperature.Setpoints.length - 1 :
         0
         ;
