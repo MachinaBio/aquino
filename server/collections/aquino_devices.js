@@ -5,42 +5,61 @@ Meteor.methods({
     function startControllerPolling () {
 
       // Get most recent temperature measurement
-      //var temperature = Meteor.call('getLatestTemperature');
+      var temperature = Meteor.call('temperature:get_temperature');
 
       // Update controller with current temp
-      //var correction = controller.update(temperature);
+      var correction = controller.update(temperature);
 
       //TODO: Move this into the voltage updating function
       // Set controller results within bounds of 0-4
-      //if (correction < 0) { correction = 0; }
-      //if (correction > 4) { correction = 4; }
+      if (correction < 0) { correction = 0; }
+      if (correction > 4) { correction = 4; }
 
       // Update voltage
-      //Meteor.call('setVoltage', correction);
+      Meteor.call('heater:set_voltage', correction);
 
       // Recurse
       if (pollingTimer) { Meteor.clearTimeout(pollingTimer); }
 
       pollingTimer = Meteor.setTimeout(startControllerPolling, 1000);
-      console.log(pollingTimer);
+
       return pollingTimer;
     }
 
-    function setInitialTarget (fields) {
-      var latest = (fields.controls && fields.controls.Temperature) ?
-        fields.controls.Temperature.Setpoints.length - 1 :
-        0
-        ;
-      console.log(latest);
+    function setTarget (setpoints) {
+      var newSetpoint =  setpoints.length ? setpoints.length - 1 : 0;
 
-      controller.setTarget(latest);
+      if (newSetpoint !== lastSetpoint) {
 
-      pollingTimer = startControllerPolling();
+        lastSetpoint = newSetpoint;
+        controller.setTarget(lastSetpoint);
+        startControllerPolling();
+      }
+    }
+
+    function createTemperatureReadingRecord (id) {
+      var sensor = TemperatureSensor.findOne(id);
+
+      return {
+        temperature: sensor.temperature,
+        unit: sensor.unit,
+        date: sensor.date
+      }
+    }
+
+    function createVoltageRecord (id) {
+      var heater = HeaterVoltage.findOne(id);
+
+      return {
+        voltage: heater.voltage,
+        date: heater.date
+      }
     }
 
     var PIDController = Meteor.npmRequire('node-pid-controller');
     var controller = new PIDController(0.0025, 0.01, 0.01);
     var pollingTimer;
+    var lastSetpoint;
 
     boss.subscribe('SingleDevice', serial_number);
     AquinoDevices = new Mongo.Collection('AquinoDevices', {
@@ -49,13 +68,61 @@ Meteor.methods({
 
     AquinoDevices.find().observeChanges({
       changed: function (id, fields) {
-        setInitialTarget(fields);
+        if (
+          fields.controls &&
+          fields.controls.Temperature &&
+          fields.controls.Temperature.Setpoints
+        ) {
+          setTarget(fields.controls.Temperature.Setpoints);
+        }
       },
 
       added: function (id, fields) {
-        setInitialTarget(fields);
+        if (
+          fields.controls &&
+          fields.controls.Temperature &&
+          fields.controls.Temperature.Setpoints
+        ) {
+          setTarget(fields.controls.Temperature.Setpoints);
+        }
       }
     });
+
+    TemperatureSensor.find().observeChanges({
+      changed: function (id) {
+        AquinoDevices.update({_id: serial_number}, {
+          $push: {
+            'controls.Temperature.Readings': createTemperatureReadingRecord(id)
+          }
+        });
+      },
+
+      added: function (id) {
+        AquinoDevices.update({_id: serial_number}, {
+          $push: {
+            'controls.Temperature.Readings': createTemperatureReadingRecord(id)
+          }
+        });
+      }
+    });
+
+    HeaterVoltage.find().observeChanges({
+      changed: function (id, fields) {
+        AquinoDevices.update({_id: serial_number}, {
+          $push: {
+            'controls.Temperature.Voltage': createVoltageRecord(id)
+          }
+        });
+      },
+
+      added: function (id, fields) {
+        AquinoDevices.update({_id: serial_number}, {
+          $push: {
+            'controls.Temperature.Voltage': createVoltageRecord(id)
+          }
+        });
+      }
+    })
 
   }
 });

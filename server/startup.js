@@ -12,6 +12,7 @@ Meteor.startup(function () {
   // Globals
   boss = DDP.connect(aquinoConfig.boss);
   serial_number = Meteor.call('loadDeviceSerial');
+  platform = Meteor.call('considerPlatform');
 
   var versions = Meteor.call('loadVersions');
   var status = Meteor.call('determineStatus');
@@ -19,7 +20,6 @@ Meteor.startup(function () {
   var devices = Devices.find().fetch();
   var priorConnectionId = boss._lastSessionId;
 
-  Meteor.call('considerPlatform');
   boss.call('deviceReport', serial_number, versions, jobs, devices);
   boss.call('deviceStatus', serial_number, status);
   boss.call('deviceUpdateTimestamp', serial_number, boss._lastSessionId);

@@ -1,8 +1,8 @@
 import piplates.DAQCplate as DAQC
 import argparse
 
-BOARD = 0
-DIGITAL_INPUT = 0
+ADDRESS = 0
+CHANNEL = 0
 
 parser = argparse.ArgumentParser(description='Read the current temperature from the sensors.')
 parser.add_argument(
@@ -16,6 +16,6 @@ parser.add_argument(
 args = parser.parse_args()
 format = args.format
 
-temperature = DAQC.getTEMP(BOARD, DIGITAL_INPUT, format);
+temperature = DAQC.getTEMP(ADDRESS, CHANNEL, format);
 
 print temperature
