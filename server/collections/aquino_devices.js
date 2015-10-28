@@ -9,6 +9,7 @@ Meteor.methods({
 
       // Update controller with current temp
       var correction = controller.update(temperature);
+      console.log('Original correction:', correction);
 
       //TODO: Move this into the voltage updating function
       // Set controller results within bounds of 0-4
@@ -27,12 +28,12 @@ Meteor.methods({
     }
 
     function setTarget (setpoints) {
-      var newSetpoint =  setpoints.length ? setpoints.length - 1 : 0;
+      var newSetpoint =  setpoints.length ? setpoints[setpoints.length - 1].value : 0;
 
       if (newSetpoint !== lastSetpoint) {
 
         lastSetpoint = newSetpoint;
-        controller.setTarget(lastSetpoint);
+        controller.setTarget(parseInt(lastSetpoint, 10));
         startControllerPolling();
       }
     }

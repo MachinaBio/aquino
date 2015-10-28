@@ -1,22 +1,17 @@
 Meteor.methods({
 
   'heater:set_voltage': function (voltage) {
-    var SET_VOLTAGE_COMMAND;
-    var execSync = Meteor.wrapAsync(Meteor.npmRequire('child_process').exec);
+    var fs = Meteor.npmRequire('fs')
 
     // Set controller results within bounds of 0-4
-    if (voltage < 0) { voltage = 0; }
-    if (voltage > 4) { voltage = 4; }
-
-    SET_VOLTAGE_COMMAND = 'python '
-      + '../../../../../external/set_heater_voltage.py '
-      + voltage
-      ;
+    if (voltage <= 0) { voltage = '0.0'; }
+    if (voltage >= 4) { voltage = '4.0'; }
 
     try {
-      execSync(SET_VOLTAGE_COMMAND);
+      fs.writeFileSync('/opt/aquino/external/voltage', voltage)
+      console.log('Voltage set:', voltage);
     } catch (error) {
-      voltage = 0;
+      voltage = '0.0';
     }
 
     HeaterVoltage.upsert('last_set_voltage', {

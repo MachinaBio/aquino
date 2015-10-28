@@ -1,30 +1,30 @@
 Meteor.methods({
 
   'temperature:read_sensor': function read_sensor (format) {
-    var READ_TEMPERATURE_COMMAND = 'python '
-      + '../../../../../external/read_temperature_sensor.py '
-      + format
-      ;
-
-    var execSync = Meteor.wrapAsync(Meteor.npmRequire('child_process').exec);
+    var fs = Meteor.npmRequire('fs')
     var temperature;
 
     try {
-      temperature = execSync(READ_TEMPERATURE_COMMAND);
+      fs.writeFileSync('/opt/aquino/external/format', format);
+      temperature = fs.readFileSync('/opt/aquino/external/temperature', 'utf8');
+      temperature = temperature.split(',');
 
     } catch (error) {
-      temperature = 0;
+      console.log(error);
+      temperature = [0, 'N/A', Date.now()];
     }
+
+    console.log('Temperature:', temperature);
 
     TemperatureSensor.upsert('last_read_temperature', {
       $set: {
-        date: Date.now(),
-        temperature: temperature,
-        unit: format
+        date: temperature[2],
+        temperature: temperature[0],
+        unit: temperature[1]
       }
     });
 
-    return temperature;
+    return temperature[0];
 
   }
 });
